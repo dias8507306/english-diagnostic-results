@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Диагностика · EduApp</title>
+<meta name="description" content="EduApp: балаңыздың ағылшын тілі бойынша диагностика нәтижесін біліңіз.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EduApp">
+<meta property="og:title" content="Диагностика · EduApp">
+<meta property="og:description" content="Балаңыздың ағылшын тілі бойынша диагностика нәтижесін біліңіз · Результаты диагностики по английскому">
+<meta property="og:url" content="https://diagnostic.eduapp.example.com/">
+<meta property="og:image" content="https://diagnostic.eduapp.example.com/logo.png">
+<meta property="og:image:secure_url" content="https://diagnostic.eduapp.example.com/logo.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="EduApp логотипі">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<link rel="apple-touch-icon" href="https://diagnostic.eduapp.example.com/logo.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect x='4' y='4' width='184' height='184' rx='44' fill='%236e4fd8'/%3E%3Ctext x='96' y='121' text-anchor='middle' font-family='Arial' font-weight='700' font-size='72' fill='%23fff'%3EEA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6FF;
+  --surface:#FFFFFF;
+  --text:#1E2030;
+  --muted:#6D7885;
+  --line:#E6E0EC;
+  --violet:#6E4FD8;
+  --violet-600:#5B3CC4;
+  --violet-deep:#2E0F4C;
+  --violet-soft:#F2EFFC;
+  --blue:#2857FC;
+  --gold:#F4CD4B;
+  --gold-hover:#F7D766;
+  --green:#048848;
+  --orange:#E8590C;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --hdr:68px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
+.wrap{width:min(1080px,100% - 32px);margin-inline:auto}
+
+/* Header */
+.hdr{position:fixed;top:12px;left:0;right:0;z-index:50;padding:0 12px}
+.hdr-in{max-width:1180px;height:var(--hdr);margin:0 auto;padding:0 10px 0 16px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.97);border:1px solid rgba(230,224,236,.9);border-radius:20px;box-shadow:0 12px 40px -16px rgba(20,8,50,.35)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--violet-deep)}
+.logo svg{width:40px;height:40px;flex:none}
+.logo small{display:block;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0;line-height:1}
+.logo span{line-height:1.05}
+.hdr-sp{flex:1}
+.lang{display:flex;padding:4px;border-radius:999px;background:var(--violet-soft)}
+.lang button{height:34px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;color:var(--violet-600);transition:background-color .2s,color .2s}
+.lang button[aria-pressed="true"]{background:var(--violet);color:#fff}
+
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:transform .35s var(--spring),box-shadow .35s var(--ease),background-color .2s,border-color .2s}
+.btn svg{width:18px;height:18px;flex:none;transition:transform .35s var(--spring)}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover svg{transform:translateX(3px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-gold{background:var(--gold);color:#1B1300;box-shadow:0 12px 30px -12px rgba(244,205,75,.75),inset 0 -2px 0 rgba(0,0,0,.08)}
+.btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease)}
+.btn-gold:hover{background:var(--gold-hover);box-shadow:0 20px 44px -14px rgba(244,205,75,.95),0 0 0 6px rgba(244,205,75,.16)}
+.btn-gold:hover::after{transform:translateX(120%)}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--text)}
+.btn-outline:hover{border-color:#C9BDF0;box-shadow:0 10px 24px -14px rgba(46,15,76,.4)}
+.btn-sm{height:40px;padding:0 16px;font-size:14px}
+
+/* Hero */
+.hero{position:relative;z-index:2;margin:8px;border-radius:32px;padding:calc(var(--hdr) + 76px) 0 88px;color:#fff;
+  background-image:
+    radial-gradient(70% 60% at 10% 6%,rgba(110,79,216,.72),transparent 60%),
+    radial-gradient(55% 55% at 94% 26%,rgba(40,87,252,.46),transparent 62%),
+    radial-gradient(50% 45% at 55% 108%,rgba(163,92,246,.42),transparent 60%),
+    linear-gradient(165deg,#2E0F4C 0%,#1A0B3A 45%,#0E1236 100%)}
+.hero::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.25;background-image:radial-gradient(rgba(255,255,255,.5) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(80% 70% at 50% 30%,#000,transparent)}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#EDE7FF;font-size:14px;font-weight:500}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(244,205,75,.2)}
+.hero h1{margin-top:22px;font-size:clamp(34px,4.6vw,58px);line-height:1.05;font-weight:700;letter-spacing:-.035em;text-wrap:balance}
+.hl{background:linear-gradient(95deg,#F4CD4B 0%,#FFE9A3 40%,#D9CCFF 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{margin-top:20px;max-width:520px;font-size:clamp(16px,1.4vw,18px);line-height:1.62;color:rgba(255,255,255,.8)}
+.steps{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.steps li{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:15px}
+.steps b{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:var(--gold);font-size:14px}
+
+/* Search card */
+.card{background:var(--surface);color:var(--text);border-radius:28px;padding:28px;box-shadow:0 40px 80px -30px rgba(10,4,40,.6)}
+.card h2{font-size:22px;letter-spacing:-.02em}
+.card .card-sub{margin-top:6px;color:var(--muted);font-size:15px}
+.field{margin-top:18px}
+.field label{display:block;margin-bottom:8px;font-size:14px;font-weight:600}
+.field input{width:100%;height:54px;padding:0 18px;border-radius:16px;border:1.5px solid var(--line);background:#FBFAFE;font:inherit;font-size:16px;color:var(--text);transition:border-color .2s,box-shadow .2s,background-color .2s}
+.field input::placeholder{color:#A3A9B5}
+.field input:focus{outline:none;border-color:var(--violet);background:#fff;box-shadow:0 0 0 4px rgba(110,79,216,.14)}
+.ac{position:relative}
+.sug{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;margin:0;padding:6px;list-style:none;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 50px -20px rgba(20,8,50,.45);max-height:300px;overflow:auto}
+.sug li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:500}
+.sug li[aria-selected="true"],.sug li:hover{background:var(--violet-soft)}
+.sug li i{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;font-style:normal;font-size:13px;font-weight:700}
+.sug li small{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted);font-weight:400}
+.sug mark{background:none;color:var(--violet);font-weight:700}
+.platform{margin-top:28px;display:flex;align-items:center;gap:14px;max-width:440px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;transition:background-color .2s,border-color .2s,transform .35s var(--spring)}
+.platform:hover{background:rgba(255,255,255,.14);border-color:rgba(244,205,75,.6);transform:translateY(-2px)}
+.platform-logo{width:44px;height:44px;flex:none}
+.platform span{flex:1;min-width:0}
+.platform b{display:block;font-size:16px}
+.platform small{display:block;font-size:14px;color:rgba(255,255,255,.72)}
+.platform-go{width:20px;height:20px;flex:none;color:var(--gold);transition:transform .35s var(--spring)}
+.platform:hover .platform-go{transform:translateX(4px)}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn-glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:#fff}
+.btn-glass:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.field .hint{margin-top:6px;font-size:13px;color:var(--muted)}
+.card .btn{width:100%;margin-top:22px}
+.err{display:none;margin-top:16px;padding:12px 14px;border-radius:14px;background:#FFF1EB;color:#9A3412;font-size:14px;line-height:1.45}
+.err.show{display:block;animation:shake .4s var(--ease)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Result */
+.result{padding:56px 0 24px;scroll-margin-top:96px}
+.result[hidden]{display:none}
+.r-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.r-head .kicker{font-size:14px;font-weight:600;color:var(--violet);text-transform:uppercase;letter-spacing:.06em}
+.r-head h2{margin-top:6px;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;line-height:1.1}
+.r-head .meta{margin-top:6px;color:var(--muted)}
+.r-actions{display:flex;gap:10px;flex-wrap:wrap}
+.grid{margin-top:24px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 18px 50px -34px rgba(46,15,76,.45)}
+.panel h3{font-size:18px;letter-spacing:-.01em}
+.score{display:flex;flex-direction:column;align-items:center;text-align:center}
+.ring{position:relative;width:200px;height:200px;margin-top:8px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:grid;place-content:center}
+.ring .val b{font-size:52px;line-height:1;letter-spacing:-.04em}
+.ring .val span{margin-top:4px;font-size:14px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:8px 16px;border-radius:999px;font-weight:600;font-size:15px}
+.badge i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.lvl-1{background:#E7F6EE;color:var(--green)}
+.lvl-2{background:#EEF2FF;color:var(--blue)}
+.lvl-3{background:#FFF6D6;color:#8A5A00}
+.lvl-4{background:#FFF1EB;color:var(--orange)}
+.score p{margin-top:12px;color:var(--muted);font-size:15px;max-width:320px}
+.cmp{margin-top:18px;width:100%;padding-top:18px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.cmp b{color:var(--text)}
+
+.skills{margin-top:18px;display:grid;gap:18px}
+.sk-top{display:flex;align-items:center;gap:10px}
+.sk-ico{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:12px;background:var(--violet-soft);color:var(--violet)}
+.sk-ico svg{width:18px;height:18px}
+.sk-name{flex:1;font-weight:600}
+.sk-name small{display:block;font-weight:400;font-size:13px;color:var(--muted);line-height:1.2}
+.sk-val{font-weight:700;font-size:18px}
+.bar{position:relative;margin-top:10px;height:12px;border-radius:999px;background:#EEF0F6}
+.bar .fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--violet),var(--blue));transition:width 1.1s var(--ease)}
+.bar .fill.low{background:linear-gradient(90deg,#F59E0B,var(--orange))}
+.bar .avg{position:absolute;top:-4px;width:3px;height:20px;border-radius:2px;background:var(--violet-deep);opacity:.35}
+.legend{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:18px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--violet),var(--blue))}
+.legend i.a{width:3px;height:14px;border-radius:2px;background:var(--violet-deep);opacity:.35}
+
+.tips{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid.one{grid-template-columns:minmax(0,1fr);max-width:520px;margin-left:auto;margin-right:auto}
+.pend{margin-top:24px;text-align:center}
+.pend p{margin-top:8px;color:var(--muted)}
+.tip-list{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.tip-list li{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:18px;background:var(--bg)}
+.tip-list li b{display:block}
+.tip-list li span{display:block;margin-top:2px;font-size:14px;color:var(--muted)}
+.dot{width:28px;height:28px;flex:none;display:grid;place-items:center;border-radius:9px;color:#fff;font-size:14px;font-weight:700}
+.dot svg{width:16px;height:16px}
+.dot.g{background:var(--green)}
+.dot.o{background:var(--orange)}
+
+.cta{margin-top:20px;border-radius:28px;padding:32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;color:#fff;
+  background:radial-gradient(60% 120% at 0% 0%,rgba(110,79,216,.85),transparent 60%),radial-gradient(60% 120% at 100% 100%,rgba(40,87,252,.7),transparent 60%),linear-gradient(135deg,#2E0F4C,#0E1236)}
+.cta h3{font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em}
+.cta p{margin-top:6px;color:rgba(255,255,255,.78);max-width:560px}
+
+.ftr{padding:40px 0 48px;color:var(--muted);font-size:14px}
+.ftr .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:24px;border-top:1px solid var(--line)}
+.ftr .logo{font-size:18px}
+.ftr .logo svg{width:32px;height:32px}
+.ftr a:hover{color:var(--violet)}
+.ig{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--text);font-weight:600}
+.ig svg{width:18px;height:18px;color:#D6249F}
+
+.reveal{animation:rise .7s var(--ease) both}
+.reveal:nth-child(2){animation-delay:.08s}
+.reveal:nth-child(3){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media (max-width:900px){
+  .hero-grid,.grid,.tips{grid-template-columns:minmax(0,1fr)}
+  .hero{padding:calc(var(--hdr) + 48px) 0 56px}
+}
+@media (max-width:600px){
+  .hero{margin:6px;border-radius:24px}
+  .card,.panel{padding:22px;border-radius:24px}
+  .logo small{display:none}
+  .hdr-cta{display:none}
+  .r-actions{width:100%}
+  .r-actions .btn{flex:1}
+  .cta{padding:24px}
+  .cta .btn,.cta-btns{width:100%}
+  .steps{display:none}
+}
+@media print{
+  .hdr,.hero,.r-actions,.cta,.ftr{display:none!important}
+  body{background:#fff}
+  .result{padding-top:0}
+  .panel{box-shadow:none;break-inside:avoid}
+  .bar .fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="#top" aria-label="EduApp">
+      <svg viewBox="0 0 192 192" aria-hidden="true"><defs><linearGradient id="eg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4fd6"/><stop offset="1" stop-color="#2857fc"/></linearGradient></defs><rect x="4" y="4" width="184" height="184" rx="44" fill="url(#eg)"/><text x="96" y="121" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="72" fill="#fff">EA</text></svg>
+      <span>eduapp<small data-t="brandSub"></small></span>
+    </a>
+    <div class="hdr-sp"></div>
+    <div class="lang" role="group" aria-label="Тіл / Язык">
+      <button type="button" data-lang="kk" aria-pressed="true">Қаз</button>
+      <button type="button" data-lang="ru" aria-pressed="false">Рус</button>
+    </div>
+    <a class="btn btn-gold btn-sm hdr-cta" href="https://eduapp.example.com" target="_blank" rel="noopener" data-t="site"></a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><i></i><span data-t="eyebrow"></span></span>
+        <h1 data-t="h1" data-html></h1>
+        <p class="hero-sub" data-t="sub"></p>
+        <ol class="steps">
+          <li><b>1</b><span data-t="step1"></span></li>
+          <li><b>2</b><span data-t="step2"></span></li>
+        </ol>
+        <a class="platform" href="https://eduapp.example.com" target="_blank" rel="noopener">
+          <svg class="platform-logo" viewBox="0 0 192 192" aria-hidden="true"><rect x="4" y="4" width="184" height="184" rx="44" fill="url(#eg)"/><text x="96" y="121" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="72" fill="#fff">EA</text></svg>
+          <span><b data-t="platformTitle"></b><small data-t="platformText"></small></span>
+          <svg class="platform-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <form class="card" id="form" novalidate autocomplete="off">
+        <h2 data-t="formTitle"></h2>
+        <p class="card-sub" data-t="formSub"></p>
+        <div class="field ac">
+          <label for="name" data-t="nameLabel"></label>
+          <input id="name" name="name" type="text" data-ph="namePh" required role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sug">
+          <ul class="sug" id="sug" role="listbox" hidden></ul>
+        </div>
+        <div class="field" id="pinField" hidden>
+          <label for="pin" data-t="pinLabel"></label>
+          <input id="pin" name="pin" type="text" inputmode="numeric" maxlength="4" data-ph="pinPh">
+        </div>
+        <button class="btn btn-gold" type="submit"><span data-t="submit"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="err" id="err" role="alert"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="result wrap" id="result" hidden aria-live="polite"></section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <span class="logo"><svg viewBox="0 0 192 192" aria-hidden="true"><rect x="4" y="4" width="184" height="184" rx="44" fill="url(#eg)"/><text x="96" y="121" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="72" fill="#fff">EA</text></svg>eduapp</span>
+    <a class="ig" href="https://www.instagram.com/eduapp_demo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>@eduapp_demo</a>
+    <span>© <span id="yr"></span> EduApp · <a href="https://eduapp.example.com" target="_blank" rel="noopener">eduapp.example.com</a></span>
+  </div>
+</footer>
+
+<script>
+const DATA = {"s":[["4",91.7,73.1,100.0,100.0,93.5,91.7],["6",84.0,83.1,84.8,92.9,87.6,71.6],["3",89.1,89.9,89.2,83.3,87.5,95.5],["3",56.1,41.3,46.0,67.9,49.8,75.4],["4",71.0,56.0,81.7,63.6,79.6,74.1],["4",64.9],["6",-1],["4",77.5,67.3,81.8,85.7,68.4,84.1],["6",83.0,72.3,95.6,79.3,71.1,96.8],["6",61.1],["3",67.8,65.9,64.9,69.7,68.3,70.1],["5",28.5,20.7,21.2,30.1,27.9,42.5],["3",90.1],["3",95.7],["3",72.7],["5",58.0,57.6,66.4,55.2,51.0,59.8],["4",73.1,57.9,80.2,77.1,65.1,85.1],["4",54.0,66.6,45.3,59.4,35.0,63.9],["5",59.9],["5",33.4,30.8,23.8,30.5,53.3,28.8],["4",59.5],["4",50.6],["3",46.5,36.8,47.3,43.0,44.6,60.8],["5",64.2,51.0,70.3,66.8,60.4,72.5],["3",-1],["4",65.7,60.2,67.8,75.6,60.2,64.5],["3",75.0,71.7,79.9,72.9,60.9,89.8],["5",81.6,81.9,84.9,79.3,63.6,98.4],["6",43.8,40.9,45.3,39.3,42.5,51.2],["6",78.5,77.2,76.8,79.4,79.2,79.8],["5",59.2,41.0,77.5,54.3,53.0,70.1],["3",59.0,51.2,51.6,53.6,65.0,73.4],["4",43.6,22.6,45.0,41.1,51.9,57.4],["5",49.8,30.0,58.7,50.7,46.6,62.8],["5",74.1,53.3,72.6,87.8,73.5,83.2],["4",81.4],["5",61.3],["3",59.3,39.1,72.9,51.8,60.8,71.8],["6",68.8,65.7,77.7,65.1,72.7,62.6],["5",64.1,62.5,62.0,66.1,58.8,71.2],["4",97.8,100.0,100.0,100.0,89.0,100.0],["6",65.4,62.1,69.8,72.5,59.1,63.4],["4",71.4],["6",67.8],["6",43.8],["3",61.2,53.4,67.4,62.7,65.4,57.2],["5",-1],["5",69.2,66.4,90.1,65.9,66.6,57.0],["6",53.9],["6",56.5,58.1,74.5,43.2,40.8,65.8],["3",56.1,52.9,64.9,70.8,40.0,51.9],["4",60.1,54.1,52.6,63.9,74.7,55.1],["5",47.6,28.7,50.7,56.9,50.7,50.8],["5",63.8,65.7,62.5,61.5,72.5,57.0],["4",86.5],["3",48.4,47.9,53.0,46.5,50.9,43.6],["3",63.4],["6",53.2,30.5,75.2,50.9,45.9,63.5],["6",45.9,53.7,35.9,56.0,29.2,54.7],["6",71.4],["5",50.0,52.6,49.0,38.8,48.7,60.7],["5",46.0,36.9,54.3,56.6,46.5,35.7],["6",70.0,68.8,69.4,56.6,73.9,81.4],["6",59.9,48.4,58.5,71.1,51.8,69.5],["4",59.4,41.3,62.1,73.8,62.2,57.7],["6",75.8,71.3,83.9,76.8,67.4,79.5],["3",81.7,64.7,79.4,88.0,77.4,99.0],["5",29.3],["6",42.8],["6",71.1,52.2,80.7,76.8,67.1,78.7],["4",65.1,43.8,81.1,65.2,55.5,79.7],["3",75.9],["3",77.6,67.8,67.7,88.8,75.5,88.4],["3",70.8,74.8,64.4,79.0,68.0,67.9],["5",45.8,26.9,37.5,53.6,51.2,59.6],["5",79.1,47.5,100.0,84.3,81.5,82.2],["3",86.1,78.1,89.3,83.3,81.4,98.5],["4",60.5,40.2,66.9,72.3,58.6,64.4],["5",-1],["3",87.9,92.1,86.8,93.3,74.8,92.5],["6",34.8,16.2,52.9,49.2,23.3,32.2],["6",69.8,59.0,66.4,80.0,70.3,73.1],["5",85.3,65.9,89.0,90.6,80.8,100.0],["6",62.9,47.6,68.6,61.0,68.1,69.4],["4",78.1,63.9,100.0,71.7,68.8,85.9],["3",72.7],["3",77.6],["5",91.0],["3",81.6],["3",-1],["5",87.1,79.4,100.0,83.2,75.2,97.8],["4",-1],["5",-1],["6",52.9],["3",58.6,40.8,60.3,66.0,63.2,62.8],["3",51.3,39.7,58.9,51.2,54.4,52.1],["5",69.0,78.0,81.2,62.8,58.7,64.1],["4",68.6,47.0,71.4,78.7,63.8,82.3],["4",82.4,70.1,88.0,85.5,79.9,88.5],["6",62.6,64.1,70.8,58.5,64.2,55.4],["5",53.4,50.8,64.1,61.0,37.0,54.0],["6",60.8],["5",82.3,73.3,94.1,82.0,70.7,91.4],["6",56.6],["6",48.5,28.2,57.1,56.3,43.3,57.4],["3",55.8],["3",48.8,51.8,54.5,44.3,42.0,51.6],["4",71.7,64.7,58.3,87.9,66.6,81.0],["4",88.5,78.3,95.2,92.5,100.0,76.4],["3",50.2,47.4,57.0,68.3,36.8,41.4],["5",81.7,67.3,76.3,92.0,82.2,90.5],["4",37.6,43.5,43.2,34.6,25.0,41.8],["6",86.5,97.3,95.2,80.4,79.7,79.8],["4",51.7],["3",57.7,58.9,63.2,62.2,54.5,49.6],["3",68.3],["5",35.5,36.9,35.5,33.9,26.4,44.9],["3",55.9,40.1,59.5,62.7,62.5,54.7],["4",43.8,41.1,59.4,36.0,39.2,43.3],["3",70.7],["3",49.9],["3",59.7,53.2,62.5,65.5,58.2,59.2],["3",91.4,96.7,97.6,75.1,88.6,98.9],["5",35.1,23.0,32.1,50.0,39.6,30.8],["4",72.5],["5",63.2,51.3,61.6,63.3,68.4,71.2],["4",80.9,78.2,88.8,80.0,76.5,81.1],["3",59.2,52.4,60.7,60.8,59.7,62.6],["5",-1],["4",51.1,47.4,60.4,45.4,47.2,55.1],["5",65.2,61.7,75.6,63.5,62.9,62.1],["3",90.6,85.1,87.0,90.8,91.0,99.2],["6",46.2,20.7,52.8,60.4,35.0,62.2],["4",65.3,69.7,81.1,45.3,59.5,71.1],["5",44.0,37.3,62.3,48.6,19.7,51.9],["6",58.8,44.1,52.0,54.2,69.9,73.7],["6",48.2,31.6,48.9,44.4,55.8,60.3],["5",65.9,57.3,65.8,75.9,59.8,70.9],["4",61.1],["4",53.0,46.4,61.3,52.8,46.1,58.5],["6",48.1],["6",53.2,53.9,60.2,63.6,41.1,47.0],["5",89.6,91.7,98.3,81.7,76.2,100.0],["5",72.8,59.9,81.5,65.4,72.6,84.7],["3",44.3,22.6,43.8,49.0,46.4,59.8],["6",97.9,89.5,100.0,100.0,100.0,100.0],["6",79.1,58.6,83.1,84.5,76.5,92.9],["3",65.7,62.2,71.9,62.5,72.4,59.7],["5",51.1],["3",87.9],["3",91.2,95.3,81.0,86.8,95.9,97.1],["6",68.9,49.0,79.2,65.1,73.0,78.2],["4",67.8,62.4,60.5,78.2,57.9,80.0],["5",49.5,34.5,50.8,51.2,59.7,51.2],["6",74.1,62.8,83.8,69.9,68.8,85.2],["5",52.2],["6",88.0,80.8,89.0,90.1,82.4,97.9],["3",61.6,48.5,67.6,76.4,53.5,62.0],["6",53.4,45.4,53.4,52.5,52.6,63.3],["5",73.1,69.2,82.3,69.4,63.8,80.8],["3",67.5,56.5,61.1,71.8,74.8,73.5],["6",84.5]],"k":{"e43tkcyhyz":[0,"c427beff2ddd1de8736c350e028990758b3e118110fd19bddb"],"20f8na65glv":[0,"2dda5c37d27ecbccca28d0b6e7a78ee309ad6b49e1542821aa"],"flz8hvxoad":[129,"e01514b6b9b89cb84136b561b92d72aae3cfc47979d59af035"],"cw1r5wd8z3":[129,"454463fc12546038b444f294b9801312ebee90a938f66e2ab7"],"19mo568m9g6":[1,"1d0971ce428d53e10f07b74f171e3eb68d1f2658dce64fa65d"],"rwb2tl178j":[1,"20507706150b6801316de1a8d495c24763fe06c9fa7921f5b1"],"ts9t33i3e1":[116,"e6e1d9f7f176daace1ccb6d3a72fe07c45ef677f342710ff38"],"2c7xa75rfwo":[116,"9da68b7218c02b5c34025f7b6b0c1c08c13fa9c658c0b3c6d7"],"g37jxx8cuu":[2,"c50c58bb4d57624fb710e0186c29fda11e8e111a1e80045f7d709012eba15138036480"],"1efz921eeom":[75,"b1f9095f248deee0f63f17e91246875f90d71ea95e166f898466dec7f33d84cb20aea9"],"14k87jqm1k7":[75,"21a5f99ba126f3fb8a3a4345ee625aab853990fab29263dd6164c112ef996446cde61d"],"2ahtuks3ymv":[80,"73fe4b7e9d128b153285ccea9aefa2223bddfb8172b2593bec"],"209mld1ranc":[3,"bbaf4ae5d18b4d48f21c240142d0be3e6546af4dd7b0138ece"],"23os72f3lak":[148,"d38a8a35156e640794d0eedb0f2491e0c99edb829440c3569e"],"17goe7p4f86":[4,"14b9c6ab96db3e6452e68a047c98213bc23374ce09ee74dd01619ad578a06b4998b4b56cd9"],"rf4em8wwc8":[46,"fd30e0efbc587ea33b1410ab2fe593a02cdeb13d8e9fd02a694c36a5e19f68474aab5731d4"],"1uossfaliu":[5,"5a8d7ad1fd4c18d7207e3a003f1d0053df3b03613a186d"],"1frzdh306qx":[6,"f432841dcca210ca8de32afbcf34a4bf8110d922089551b64c3d1239e44d6efe78"],"1l8hwtws6q4":[7,"09b283deeed1a65df81a8abfcd6c5cad3e00596c2f98417a86eb6713551ac7e961"],"24zi1poae6g":[8,"fa465bb1470f81bbaa68361f11a4dee68c691d18234593d6b6cfcc6c05"],"gtlw76ner5":[9,"56e74517643117144cc7b68369f1cdaa0a329f396b07ace6dbb12a"],"v3hkgp6qbv":[10,"b3321dcb1c1211e2d0e4d9227cc6dcc69ec6a030cabc545a10b7e4"],"2448mzoxn65":[11,"26a0ba69e4f489b317307f7dae6b2dea9dc74ec6e55361a2ee4fad0ed66c6f"],"3jy53rzy56":[12,"342e591326690e810f4760df23d291a6e914007b36263c"],"20y7zzzto1b":[13,"bfc39fbf59d34183dcf6d580a81acb016a2b758129fbea1cae"],"4q4jp3zowj":[14,"f568a1d4fbc3a44f3aa2e7e616b7617a51f0bad3f24230735c"],"2du4v7mh4ow":[132,"79fea11a741bd7a309f357d6fe9f13668884f98149374c73e5a125951b"],"1b8uk2vxsbb":[15,"331b68685e633113123cfaeee4d747aae63bfeecff090a52ff32e2e327"],"qb2hlimfij":[16,"799d912ff7a64e462f79db0c934646e5c19ec96c20d7c51981f78f"],"24wc4m8milb":[16,"94dcb1805d07a68e8cae2adb5baab13f9dcee69e39a9ab600da26d"],"10mw9c75hxm":[48,"43932449019cccfca553b05b2f84556eb235768678546030cb06e1"],"1gaoa68mwrd":[48,"c2ee5cab039bd2696206a7f2f7db91abbef2f90f45150b60aa9a22"],"z283q21qbv":[17,"ce385dec3513f1992d4c61429e280bcf23748863e06df5bf9e56e2a8048c24"],"2g2p86o8jf0":[54,"adc21c87f3ea6950e6fe08644df27ef2dfdaceae1db505c657b6ae2ea164bc"],"yd7rdmoab0":[18,"c840c32aa5b8a54e2bd46b8da254ad2da9cb842d895e8129bc4ea3015a4fd32b9bd1f1892db7004dfab349"],"9ahuit0nzp":[19,"0d40396b87b66f7825cb7192d19d6b391133f9f2e491409262a93173472646fecd"],"13ctoosb19q":[20,"5a172343f5b4c271e38285e7f2b3568da9c442c24741d8ec98ad87"],"6pblvfuxpb":[21,"5a04a082a5279a73f29287e657acdee731dcf816cf9df2cdbf"],"1pqh3xfs5bo":[22,"d418c826c71d53f00d89a92fab9c3af00b48ff2d3fce52262e264e995a"],"10olu2qjxcw":[98,"f3d51be2f1fd1a8a53d2020ff2404ce8992fa20a7e7cb53ed9aebbe99eb752"],"13n94m6fip4":[23,"108dcbe18501950f08fb7bdf178bcc48e127e4d0e0a431a3197613493c952a"],"1malicvwp5u":[24,"90f90edeb2b3c9bd77c135c7527e2baa64d794a846179efe8cf46418041577"],"k3jkwhovg5":[25,"671a8687bea421f5cc5b67d515aeffb790f5e99e2bf6f1bf0f15c0002c159b"],"2aejb4ukqfs":[26,"e8fee5982cbfa43250ec42275822544ecb59f92bb3a7782b2d5569c876ec8b"],"cbxyho85my":[71,"c90c5c4da1952acbe13ec901fe4993805c51467683fa133e5a545ae2ceb83b"],"1wjt6h0rvh3":[27,"db8616e1109f9d9a4395e243c528236a314503fadd665c7d5a"],"1ygg1d7ao8t":[28,"6a304107346982251556cca9e1c4d712863bf2660cd55a037dd99baabe"],"149u6nzb9li":[29,"b9268d442750a6dbb066824599093481a241140ab6c29103e5f81324ae"],"yb700swipe":[30,"3c4b4ca2e3cd73a8ca17a36c3067f877fea78ab3b8d515d8f6f9c03d5a"],"10xeije494x":[31,"22e6c91836015058995ab699b70779e1056fb06c85d6fa04080243256a223aaff070b76d638ae40e4a"],"1s9877nl873":[32,"e2bcf0127c177215a26008430f240d0f2cd7120f66e4b4391d"],"1j1u75plv1u":[33,"02ee1f114acb0958232537f43dc02c6c27b809e4d7a1fa01f2325d38a4"],"d3ikz5hjoi":[34,"73c4a0c5f086bbb409a784dde90196f1113686017badc9c880"],"17kw1a1tudn":[35,"afa8e303f9bce4e1b62c7a620500d7adb4b4e3e0a1678e6246b0f43c33b4bbdcb7"],"mld9gw9b3q":[155,"645d8f942c4ba461559aaaf2580b3a472b4771724329548e247f00603c"],"1bl415hroii":[36,"e83ce7533bef58923c365996c17b2764681e53d6325c389b15677e881f"],"1di8c5aa6xi":[143,"96d40d33c242aa5f1fbc13c4e818ddeabdf142a2a47b6a10b6e85134ae"],"19bmwbhu71z":[74,"58c63b492a1875ac1eafec8ab9f9296f8c78111f39c3d0b09ec64a1162"],"1xxet1z214s":[74,"5d73cd8e03bc9e46eaab9e17a9bcd5bb3a1bf9cf8314cef26da3d5d0ba"],"u6v9ddgq9r":[37,"d2dd96ab45b3f90ded77fea95d0af0656a122a760f8060662db6e3e58c"],"ux2urpstzt":[38,"2efc2c2574df09ae307cc9a57486209c6e4eaa9261566e04ae"],"rcob8ru9tj":[39,"6087118c052738987098a4d5f91b045bc03f8b88720498b733fc92ff2c57c41005e397f1b156030921"],"15feosm1ou":[40,"fdee1155898a8ea307cb1bd084e93c2ffb8a7ed3bc2324b3e86a50"],"iqkz3jcrqr":[41,"d617cf388d027945b78508d1956edb353af237e31869ff0169"],"25eg370z9d4":[42,"54a0a86a1205b474951198522bc3894ebe397b6421a395d8e4447477d8"],"99sv3mabt6":[43,"97b11d3d20940333e42a34104c63c88dd362dbcee8"],"28c2e3s2qcp":[44,"c58ae19797e176cb5e8479e0099d277502746f8107d94fd19b"],"205rimxqr33":[45,"c757192f9bbc7f29adc29cba514f30e2b07d7b15010d13"],"s16w4yheta":[47,"b6bdd9bd341c7f9081563f37aeacb97e94444c394934a69e60935864cd"],"qj8ajqc01z":[49,"90a8c3dde1d6bd0cd3c474c5283a4ef43f69b7b4d0be624e8a01b604abbf61"],"12231efq20v":[50,"2bd06d55f4fe3654ea1143743a0bec9f201cdb827ad321"],"vm6muqyfgl":[51,"27efb24539f0f7868143bdda585a2664b7819eb7daca6fb0a30486"],"jxxd7lpw9v":[52,"92568baa4571ef11b2b748ff7dde4e7e800aca094de0286615419d845e"],"2dg6lyhy51f":[52,"aebac336192d5f7d4405f4360b8c1646615f448b880c6b80558d423d3f"],"1oidc0q1ybn":[70,"6d1cf842d73134c9430bbc8fbbd8a5ae25407ed0d845f785d1ef193e0c"],"14v94zaklng":[53,"a9badc4f72963c6b95aef25ed8add11426c11f60bdce19ee3f494655c624843385"],"e1lyn0w814":[55,"645995084bdae4106de7c444fbef96cdd11cf5ebfe4fbea924b424"],"1bo0f3dznr6":[56,"a4f4fab8f40aa89ad2d92d371cf628121ecdac9503e0e1546a3023"],"th3pnsdt7e":[57,"7cb6a430e466eaa65cf9f531201cdafb9f88c051068a059bd9"],"ftgyvp9zjq":[58,"8448e38a39bbba3f35bac43d819dbb871735c54a7d3c1af332fef81515a05b"],"k3pc4fz0dm":[59,"c3a99c77fdaa6882ea8b7a6fa1e5fc66a2d9d3fbad22c957d6e4b7"],"1bg1g2ipqhh":[60,"cc15ba220dfadd352b712c678eebcbc7d1fc1d65e1937c77b3045d82bd792751b6"],"fseecwby11":[61,"8426d68ec287230556d8a9a01c6de7bcd61042c32938364510"],"u0vkakphj2":[62,"5b9a1b461775d6ae364843fcd2e87bff831daa2ae64355616b2773268fa5b539e79831af868b5c"],"zfb1oeth9w":[63,"1f055d5ebf04b55014cce41680a2cbc4aff438cc5c1c5c83be77f7c5d3"],"hhh0ge3fe8":[64,"886a2053779660068aa1d15a06ddec0a37dddb864282169355c87c45883946"],"65upgx1dsj":[65,"c169bad54f02ce9351fff28463cf3b5eba8ab3de84ace7520095406026"],"23ahwtfln94":[66,"0e92a89b89227b19001bead5116343751791efd7233592"],"1y2zgaora4x":[67,"58e1a5133a5d93b4341fdd1e1d24d33a9539f41f34f8766674"],"253txhexgqq":[68,"e4ac9735cd317c3bd791f3e514bd8b8e72710bdeaae63d47a8cce292c797d5"],"pksewyx66n":[69,"508a870a76824454096357694cf17248f5c066e61cd595172f"],"v6hhes30in":[69,"dbb7f013698fc52b534b05b755e5504a0dc478308f0fa4cec2"],"1ftecdd9o1l":[72,"e1b2a2dd94de11a07a4b48dae6f45676fdf735b70a81c0b4c481f7c14e"],"2b6ylk0yzvg":[73,"f2833cd32c2dabf0c3afb25409096e29ec729fcc96ce6638faf1fe"],"nrkkagt6bl":[76,"cd1aaa27df649f40bc0fcabc40aab4b8bb3fe26bbf6e104e41"],"16pr7ejy81g":[76,"f7a87f7316d52dbd0d92272fa74f7e769d5d25890d2c44510f"],"1jc8ucz4rkp":[92,"dd1290d9aff3137ce2175b1c703f70cfb6dd69c146cc300b7d"],"qkyfusundg":[92,"adc7d8326ed63a0779225595c2f8e2d280aaa770d1926d385e"],"770smrhjb2":[108,"8115454ac7d6c6ce98d0174a56730e0319cfc9ed4e7ecdce0150a3a445"],"1gvy3i5jz5s":[77,"acd86fd0eecfef5f35bd1d20de4753e90bbadb6ff3566fa65c1485e7bd"],"zg8z252yne":[78,"dca2514702e77d98ebd3eaa0fd5359a04acd44bc0c39416b45"],"1gr4h0ujmqi":[79,"d6c9d574881bfca479a65109865432f2ad18188dbce8dc3c1e76f32475"],"1ztza64j31a":[81,"095f2ae288c614f7c2c290cdb9b02e5cef19fb3eda236da9a6ebec5a5bc9d1"],"e29sxuum4w":[82,"97d9a80bb7a6f0f464c52adb43bc8c835d48cb382c54028faecdcdf84d23e607eef6af1c3df0aee0a7"],"4ytztai46m":[83,"7590f46fb73a64b44afba558dec7e2bbe1737c0fe7e980dc78b6b9b860"],"1xsu236s75d":[84,"ef837f81cf9c41b366a081d8742c7755c99d66ac9c774e"],"121a5zlqz06":[85,"b677d5a27b70c58af6bbfdb00d5e1aff139ee266101d96738fa3ec641e"],"999ux6fz1o":[127,"d96bf207dbb5227c3b683950acfdf009269c47c07de60e237599f83431"],"pbsoyz8tgk":[86,"68d792ffaf29ceaa1ad018eb05ac46de07d03e435e7c4c6065cb05af01"],"7pa6tiug3o":[156,"20eb2c230fba1ed52c92753ab87b2471ce49c0e56a3a258d94"],"82fooue69y":[87,"dafda45b28d6bf310946dc1b916faaedffd0091bd17799a034"],"112n9mz5t8o":[88,"40c0387b4cba33193907e1c5bc5a5f15fbd0eb99208c9637a5"],"4ubzzci15v":[89,"9b1df55736cb05c51ce2705d422e727d25bacd9c1bee24c534a04cdb41"],"27a2vf6pi0q":[90,"edad6ff99b67faa757e5724e2d56a1d5b6568d5211f7b366ccf1c09c68"],"1j6b9i9347y":[104,"65bd4246a2828c237767462d59f4dfadcf57456767644fb60a8ac6"],"ihp5o6akyu":[91,"62f2a322e50a39fb25a0a5c845903b58b476f2c9c586978f7fc10d"],"ft4f715lp":[93,"21342a0f45627829aac5ae37ce3c599b618bfb789620129a11"],"20vt03r1erb":[149,"9fd2762f7794ba454d9758c93db1798becf814215ee0cad204"],"1ajp8u89xdj":[94,"311478c05c3e39676ed0ae344877afe48ef7cd173da8c7"],"2086x216y4b":[95,"6d1ebcfffbf964ad07380a6f43c63c38d7054ea0ba036da28713fe8435bd44"],"1m913jh0bnx":[96,"83814b5add87685d7021ed32f8bbfc5b11b2a3cdfa95a92af02b426c97da2e"],"h28hi4358m":[107,"09e95ba2c2feb97efdc8b19dc412264e96c1dab2158752536459fcdccbc76f"],"17zy8s78v5v":[107,"f11a0da86cf838d349f44bd2478072c269eb3a6f403331326d37c81513caff"],"1roxyohdf88":[97,"91bde34bba356339174308236f418562257fa1d724b0cb6a25fee2a00a3573c484"],"2ufpyoltij":[99,"0206c34b6b8d6337a2126dcc4aba20bd3f52dcf1d6d602566fda35"],"fap36scf3b":[100,"1712a0f31b94a0823f9d945a52d27b600af4bab0c09ec58c53e0fb3d7687aa9a3e005b"],"1ehao34ops2":[101,"5306106c906530244af681b25249cfa3ec9cb24bdd1edd7e065c0b014c"],"1sbvt8xmsm3":[102,"a735c9d824d3386490f1d9b9eed59e7941265e2e59eeb8b12c"],"16dzufvoucq":[103,"39c02284d4375a5b202268b5831c1a9d188bd7a9dffc34cfa65dc95fcede2f7bb27b12d659a740021c"],"5hqtffbbyo":[105,"d9f32a9c8a696129e350c25954912cb5c9a0092639f29d9bb854e7afe8"],"1z9mxod694y":[106,"6337c73d7c53f997144fd9c1c9dcf8784e5d6b486976bebe83"],"5hccjf2syb":[109,"89a0b0b02bfb753279fe95e68ae4575317344fa09a7b7c807066e08a897c7cd68a9fde"],"28fldxw1old":[110,"4aa0199440f4782acad2cab26dbdfbab00ec1b15d0969ca723d9c03601d8d3"],"23nmnl3fzup":[113,"9c44da20025e6a30d38be79fa33308c0b4f360abb2a6b78c7a"],"18q96z49jv8":[113,"a8e69d7bcf08d2329a93325c1d612fa50510e1a3fa5c671b6b"],"7s5uszoeb0":[111,"10248eb0ca92d07ae526599d6ce6f7ecf7cee8445865b64ce4"],"vk9nk8vtm":[112,"62b28981b3f76397c3996c637e627d56193705c76fa21eb3d51a82"],"7pixvmv849":[126,"16e0248ca8e99779853d492d84a25cece37a011a913fe8139aa48b"],"1ieszbp2tf1":[114,"163f9d0a97892e4bf0e5d9d58a28022afc9189bae5a338935b7527"],"tmpz2kpp8g":[115,"58da0d3f2de729b849ecaf82e4f38982a61cb54748af2d"],"7eqkuk2vum":[117,"8e24305010858592349dc71b68ccd99fbdae2e4b3ae4c762bd199d"],"1jwirsxq6gh":[118,"fb08ea8f8f24f4cf4dac6e8d1eceeb08b4dae7c62b9ac015e97379bb1a4066"],"gh9y9amt2n":[119,"6aa147caacf2abb4aada3c69ba7f501bf09cceb70bf310787fb087beb613eaf1cf"],"436qjmf5y0":[120,"afc784eabe9df4a608cbd91fe4edc81b22ccd0712a9c3371d4a2cbd23d8aa1"],"3s5fih2nns":[121,"2505c7676702af142d9c4adb4bb22dec1cf1cc895bee0fe0d2ee10"],"1d3utbndtal":[152,"d3c3f0de3339b327aaead7d86bdb206b658c38791738decf24c08f6ddd6ef2"],"14q207m1a8s":[122,"a241d2d249ad6f4db1122e903560d80566b4173efe2147f9be6a497b4df662"],"13h04ajn321":[123,"b8865bf1934909f4bfbf75ae0051f3ce5b657ff563cdc31cfc6e20"],"299jzx6iifd":[124,"dc8032d062d6081519c950a647b7e6ae503f334d90fe40d61125ff"],"2cwsadv4iwd":[125,"4fa18e74fa069146e472f6807ffa1bb9eae01644e7ab52a054"],"1qj5mxjwf5z":[128,"d0e766354db9d847d9e3b79c2e76bcfb31721c6b06f66a9d5c"],"23gd2s0f31":[128,"c6a0b519bcab09e7677f74badb4be1eb198faaebc1fa3c73b8"],"j2lgucidun":[130,"f83ae764eda71d5222dac3ab1a00e2e223ad788496f7d83d54"],"kgfdiqumb9":[131,"e09ad6b033cf3c5fd369953ec655f0aedf3ca7296baa5cd14d"],"prh6ob6h9s":[133,"68eac4139165a2caaddf03de22bf9aef400e275626aeef5fde557510af3d87"],"bhxlipftb0":[134,"eb9f1f4c4110442958a2fbc42aa2452fa55eda376152f853e3f41be29ed346ee7f"],"111ieczklf":[135,"681b91d361eac9a411b32369c227dee49fe5f4538bce1ff0678092d442877455d8"],"249slns4790":[136,"307f446e562e27d8071f14c0991feac0342c0242af2da3"],"1x6sawpo151":[137,"6c3ce177c31a855b0929076c2caa39d3a74335a07329b5c40c"],"15duz6pfaol":[138,"344636dbf49faffd9134b951a14174f40f41c5ffffa4e1194e0d5a40b7edd9"],"qwk9fh1ntp":[139,"7371febcf50b6869c90541e27239a0fe2fd430c52b7e9c2c9dff753e39"],"5vaou35v1":[140,"8cad7f849ddae3b4447de8bb7b97b27331bce6ba1ae0145c75"],"2auaqssqcu7":[141,"3be5d84bd73e94307bd068f9cbbedad4395ae3f68453509c3c109f4a72"],"2c8iowg7w42":[142,"deb36effe7046e98c04d56cf485bcc475c24cd9aa0c4e6347c9eee913194cdf847"],"1v7qfagb94s":[144,"6480c988a3d738f6cd579ea88155b330eb0595e745ff9a93d310c74545562a"],"127l8v7v2bh":[145,"43ee09571de83e9507b9ce13ad44b9c4ba5ae8672fa0423aad"],"3sx4wxtkb4":[145,"5f681a25648639d485efabc6d777898e892e71cecb4507255e"],"131ljdfl33y":[146,"45726d18160f6fe775c0c9aaac86cc9ee11e085096c13c6ad2cdffe9e5d3d3c4be"],"17dklvoiov5":[147,"a116269307ae9849169c96173577dfc0c0da77d9eebff09e48f4f4f7d15edf08c1"],"1rxtgh593wi":[150,"9a708275ad04f24138f0d0d8179b7746b82b9606b04f0be0a3c5c8"],"pkdrnpyptb":[151,"f96c0221bb437ab0dbcc8126dc1ff7d24b8c2b9f11074c72d5e8774c0c"],"b5w77c2897":[153,"698c501acf2d66b30f7cce9bf0d7a1bc7afb18c65b21f044026b7d877b"],"2ba748eg4mz":[154,"0172070cf45f76332f2d1ef7cea436a676fceebe22ba2e0693"],"1xmub3jliew":[157,"0a596bcbc5f3e703985bec5fcacf43f64897bd72b77477899d395b2f94b3decf00183a"],"29l5393kzc":[158,"9a477716406b3b2f86eabf48e41394e32778d5fdf010c49b23"],"1gmbtocq5k":[159,"d97b79beb692b69c912b14da11dd31cbd9b88bf5625f4b4135"],"14eeglz3nh5":[160,"f5af8892d64e7adff408d668e8769b1d47b2d24c20e3f49b50"],"1miyzx0c3mg":[161,"c19e10c82eb07fbe38f9886c2d1eb7dceb93be51434c4d42a5bcb56f66e47ea794"]},"a":["10adhbb9nkg","13551pj9uv7","14alg1qfnrd","14d6y04c90y","14hk6xr8hcv","14off2paxxk","15f18fg86do","17lw8jhltni","184aysxua7g","1apdiegip6w","1bpneec29qx","1c4501e2rp","1fji62920id","1i27znfcecb","1iocxcslb75","1j9lx6x13d","1jih69r7vkt","1kl67et3ebj","1lhe497k2nr","1llyjl8gthn","1ndhji16cth","1oo2lmikx2l","1p8kch2qjr1","1q6rkjxw9bd","1qbln4b9i4v","1qc0pxpenui","1tovuhfzc72","1uxpklw7tkj","1y458zf1ejo","1yjxa2hnxqb","1yrwayyl0t4","1zoki5h2194","1zzbyc8ckpx","21dunhnv4ko","21lezqudwb7","2361t9yi4vj","23pxlqosq49","268f6gvi3k4","27h5saeyd04","27ntt7gp74h","29btgvesrve","29dg6xlq0vc","2alpg3xka20","2b7q1f630et","2bt2cxjp7q0","2cb6dr5ufsn","2d536w83g2c","2eb0eakgi2f","2ecquauvire","2euhzhvcfa1","6tfggmyrq9","8dv3h9pb6g","a0xkoj51o3","a9oxxw1j58","adrbnnr00d","akn46kcocf","cb8izns6uo","dps7pfufky","exk02gyrmm","fdcisi1305","huuyj6ucy3","j0ma2th5zb","jcslrzynjl","ko1pj3h4wa","kq6j620l81","ni8j0jc8xi","nmastdsic4","o2swp9oott","pixtvk1cu0","qgti336gg1","ql2l7iqwj","r64vmt19y7","u51tl5nl4f","wm2c5jkp4x"],"p":["19yytax0g67","1a71xgj23u3","1ci6c6neei6","1e82o6orshr","1hexx8d8lal","1kfxcysnk5j","1kjqh6gtup8","1n8as6xqfmo","1qahsln7rn7","1qr75qeyk4m","1qs8vhx1u5b","1r6jfpyfu6p","1vhnajz5tcd","1vlz4y2tavj","29cm1l6yr1g","29tj0i8ik45","4gwfbra9x9","59lnlufz9t","b5ije2szvo","b77t1s2ayx","biq46g5zah","bti0u0pm8t","uczr2pmifi"],"n":["Оспанов Ақжол","Ермекова Інжу","Жақсылықова Сымбат","Омарова Амина","Жақсылықов Нұрислам","Исаев Дәулет","Қайратов Нұрислам","Нұрланова Еркежан","Қасымов Рамазан","Байжанов Айдар","Тұрсынова Інжу","Жұмабаева Балнұр","Омарова Айша","Оспанов Арсен","Төлеуова Дана","Бекенова Ақбота","Сапаров Данияр","Нұрланова Ақбота","Құдайбергенов Нұрислам","Төлеуов Нұрсұлтан","Нұрланов Айдар","Сапарова Дана","Исаев Нұрсұлтан","Сапарова Айгерім","Байжанова Аяулым","Қайратова Камила","Тұрсынова Сабина","Ахметов Самат","Бекенова Аружан","Ермекова Сымбат","Мұратова Ақбота","Құдайбергенова Медина","Ермеков Ильяс","Қайратова Амина","Бекенова Дана","Серікбаева Аружан","Серікбаев Арсен","Сейітова Мадина","Төлеуова Айша","Құдайбергенов Рамазан","Әбенова Ақбота","Сейітов Айдар","Ахметова Сабина","Исаев Елдос","Ермеков Ерлан","Әбенов Тимур","Жақсылықов Нұрислам","Ахметова Аяулым","Сапаров Данияр","Қайратова Сымбат","Исаев Нұрәли","Нұрланов Тимур","Мұратова Гүлназ","Нұрланов Нұрислам","Нұрланова Ақбота","Нұрланов Арсен","Қайратов Арсен","Әбенов Нұрәли","Байжанова Мадина","Байжанов Арсен","Жақсылықов Алихан","Бекенов Арсен","Құдайбергенов Әлихан","Қайратов Данияр","Тұрсынова Камила","Төлеуов Рамазан","Омаров Ильяс","Сапаров Самат","Қайратова Мадина","Жұмабаев Әмір","Мұратова Гүлназ","Тұрсынова Сабина","Қасымова Медина","Оспанов Дәулет","Сейітова Мадина","Жақсылықова Сымбат","Бекенов Ақжол","Ермекова Жансая","Омаров Санжар","Мұратова Аяулым","Омарова Амина","Қайратова Аружан","Құдайбергенова Аяулым","Ахметова Балнұр","Омарова Зере","Сейітова Аружан","Серікбаев Ерлан","Исаева Мадина","Қасымов Айдар","Ермекова Медина","Тұрсынов Данияр","Омарова Аружан","Бекенов Ақжол","Қасымова Зере","Әбенов Арсен","Ермекова Томирис","Ермекова Айгерім","Жұмабаева Айгерім","Сапарова Айгерім","Сейітов Данияр","Жақсылықова Медина","Жұмабаев Алихан","Мұратов Айдар","Құдайбергенова Камила","Омарова Аружан","Бекенова Сабина","Сапаров Елдос","Ермекова Айгерім","Ермекова Жансая","Тұрсынов Нұрсұлтан","Тұрсынова Балнұр","Сейітов Самат","Бекенов Санжар","Сейітов Самат","Сейітов Алихан","Омарова Дана","Ермекова Інжу","Әбенова Мадина","Жақсылықов Айдар","Тұрсынов Нұрислам","Нұрланова Жансая","Ермеков Данияр","Нұрланова Камила","Омарова Балнұр","Ахметов Данияр","Ахметов Ақжол","Бекенов Санжар","Сейітова Аружан","Оспанова Дана","Оспанов Ақжол","Сапаров Айдар","Оспанов Айдар","Бекенова Ақбота","Қасымова Еркежан","Серікбаева Мадина","Жұмабаева Томирис","Исаев Әлихан","Мұратов Ерлан","Сапарова Еркежан","Ахметова Камила","Сейітова Зере","Мұратова Медина","Ахметов Нұрсұлтан","Серікбаев Арсен","Мұратова Айгерім","Қасымов Ислам","Байжанова Томирис","Серікбаева Сымбат","Омарова Амина","Қасымова Зере","Тұрсынов Ильяс","Төлеуова Жансая","Нұрланова Камила","Ахметов Рамазан","Төлеуов Тимур","Серікбаев Арсен","Исаева Мадина","Нұрланов Нұрсұлтан","Қасымов Елдос","Сейітов Елдос","Бекенов Елдос","Мұратов Нұрсұлтан"]};
+
+/* --- Ядро поиска: должно совпадать с build.py --- */
+const TR = {"а":"a","ә":"a","б":"b","в":"v","г":"g","ғ":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"i","і":"i","к":"k","қ":"k","л":"l","м":"m","н":"n","ң":"n","о":"o","ө":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ұ":"u","ү":"u","ф":"f","х":"h","һ":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sh","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"};
+function words(name){
+  let s = [...name.toLowerCase()].map(ch => TR[ch] ?? ch).join("");
+  s = s.replaceAll("zh","j").replaceAll("kh","h").replaceAll("y","i").replaceAll("w","u").replaceAll("q","k");
+  s = s.replace(/[^a-z]+/g," ").replace(/(.)\1+/g,"$1");
+  return s.split(" ").filter(Boolean).sort();
+}
+function cyrb53(str, seed = 0){
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++){
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+}
+function unseal(hex, key){
+  const bytes = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(hex.substr(i * 2, 2), 16) ^ (cyrb53(key + ":" + i, 99) & 255);
+  return new TextDecoder().decode(bytes);
+}
+function lookup(name, pin){
+  const ws = words(name);
+  if (!ws.length) return null;
+  const hitOf = key => { const hit = DATA.k[cyrb53(key, 1).toString(36)];
+    return hit && {name: unseal(hit[1], key), grade: DATA.s[hit[0]][0], s: DATA.s[hit[0]].slice(1)}; };
+  const full = ws.join(" ");
+  // одинаковое имя у разных детей — нужны последние 4 цифры телефона
+  if ((DATA.p || []).includes(cyrb53(full, 1).toString(36))) return pin ? hitOf(full + "#" + pin) || "pinBad" : "pin";
+  for (const v of [full, ...ws]){
+    const r = hitOf(v);
+    if (r) return r;
+  }
+  return DATA.a.includes(cyrb53(full, 1).toString(36)) ? "amb" : null;
+}
+
+/* --- Тексты --- */
+const I18N = {
+  kk: {
+    brandSub:"Диагностика", site:"eduapp.example.com",
+    platformTitle:"EduApp платформасы", platformText:"Онлайн сабақтар, челлендждер мен тесттер · eduapp.example.com",
+    eyebrow:"Ағылшын тілі · Диагностикалық тест",
+    h1:'Балаңыздың ағылшын тілі <span class="hl">деңгейін</span> біліңіз',
+    sub:"Диагностикалық тесттің толық нәтижесі: жалпы балл, 5 дағды бойынша талдау және мұғалімнің ұсыныстары.",
+    step1:"Баланың аты-жөнін жазыңыз", step2:"Нәтижені бірден көріңіз",
+    formTitle:"Нәтижені көру", formSub:"Тіркелу қажет емес — 10 секунд қана.",
+    nameLabel:"Баланың аты-жөні", gradeShort: g => g + "-сынып", namePh:"Мысалы: Нұртас Жанмұрат",
+    submit:"Нәтижені көру",
+    errEmpty:"Баланың аты-жөнін енгізіңіз.",
+    errAmb:"Бұл есіммен бірнеше оқушы бар. Баланың аты мен тегін толық жазыңыз.",
+    errNone:"Нәтиже табылмады. Аты-жөнді тексеріп, қайта жазыңыз. Көмек керек болса, мұғалімге жазыңыз.",
+    pinLabel:"Телефон нөмірінің соңғы 4 саны", pinPh:"Мысалы: 1234",
+    errPin:"Бұл есіммен бірнеше оқушы бар. Ата-ананың немесе баланың телефон нөмірінің соңғы 4 санын жазыңыз.",
+    errPinBad:"Телефон нөмірі сәйкес келмеді. Тестке тіркелген нөмірдің соңғы 4 санын тексеріңіз.",
+    pendTitle:"Тест әлі аяқталмаған",
+    pendText:"Бала диагностикалық тестті әлі толық тапсырмаған. Тестті EduApp-та аяқтаған соң, нәтижесі осы жерде шығады.",
+    kicker:"Диагностика нәтижесі", grade: g => g + "-сынып · English Diagnostic Test",
+    print:"Сақтау / басып шығару", again:"Басқа оқушы",
+    total:"Жалпы нәтиже", outOf:"100%-дан", classAvg:"Сынып орташасы", vsAvg:"Сыныптан",
+    above:"жоғары", below:"төмен", equal:"тең",
+    skillsTitle:"Дағдылар бойынша талдау", legendYou:"Баланың нәтижесі", legendAvg:"Сынып орташасы",
+    strong:"Күшті жақтары", focus:"Назар аудару керек",
+    keep:"Барлық дағдылар жақсы деңгейде — осы қарқынды сақтаңыз!",
+    ctaTitle:"Нәтижені жақсартуға көмектесеміз", ctaText:"EduApp мұғалімдері балаңыздың әлсіз тұстарына арналған жеке жоспар құрып береді.", ctaBtn:"Сабаққа жазылу",
+    levels:[["Өте жақсы","Сыныптан озық деңгей. Күрделірек тапсырмаларға дайын."],["Жақсы","Негізгі тақырыптар жақсы меңгерілген, бірнеше дағдыны күшейту керек."],["Орташа","Негіз бар, бірақ жүйелі қайталау мен жаттығу қажет."],["Бастапқы","Негізгі тақырыптарды мұғаліммен бірге қайта бекіту ұсынылады."]],
+    skills:{W:["Жазылым","Writing","Күн сайын 3–5 сөйлем жазып, қателерді бірге тексеріңіз."],Voc:["Сөздік қор","Vocabulary","Күніне 5 жаңа сөз: карточкалар мен ойындар арқылы қайталаңыз."],R:["Оқылым","Reading","Аптасына 2–3 рет қысқа ағылшынша әңгімелерді дауыстап оқыңыз."],Gr:["Грамматика","Grammar","Негізгі ережелерді (to be, Present Simple) мысалдармен бекітіңіз."],L:["Тыңдалым","Listening","Ағылшынша мультфильмдер мен әндерді субтитрмен тыңдаңыз."]}
+  },
+  ru: {
+    brandSub:"Диагностика", site:"eduapp.example.com",
+    platformTitle:"Платформа EduApp", platformText:"Онлайн-уроки, челленджи и тесты · eduapp.example.com",
+    eyebrow:"Английский язык · Диагностический тест",
+    h1:'Узнайте <span class="hl">уровень</span> английского вашего ребёнка',
+    sub:"Полный результат диагностического теста: общий балл, разбор по 5 навыкам и рекомендации учителя.",
+    step1:"Введите имя и фамилию ребёнка", step2:"Сразу смотрите результат",
+    formTitle:"Посмотреть результат", formSub:"Без регистрации — всего 10 секунд.",
+    nameLabel:"Имя и фамилия ребёнка", gradeShort: g => g + " класс", namePh:"Например: Нұртас Жанмұрат",
+    submit:"Посмотреть результат",
+    errEmpty:"Введите имя ребёнка.",
+    errAmb:"С таким именем несколько учеников. Введите имя и фамилию полностью.",
+    errNone:"Результат не найден. Проверьте имя и фамилию и попробуйте ещё раз. Если не получается — напишите учителю.",
+    pinLabel:"Последние 4 цифры телефона", pinPh:"Например: 1234",
+    errPin:"С таким именем несколько учеников. Введите последние 4 цифры телефона родителя или ребёнка.",
+    errPinBad:"Телефон не совпал. Проверьте последние 4 цифры номера, указанного при регистрации на тест.",
+    pendTitle:"Тест ещё не завершён",
+    pendText:"Ребёнок ещё не прошёл диагностический тест полностью. Когда тест будет завершён в EduApp, результат появится здесь.",
+    kicker:"Результат диагностики", grade: g => g + " класс · English Diagnostic Test",
+    print:"Сохранить / печать", again:"Другой ученик",
+    total:"Общий результат", outOf:"из 100%", classAvg:"Среднее по классу", vsAvg:"По сравнению с классом",
+    above:"выше", below:"ниже", equal:"на уровне",
+    skillsTitle:"Разбор по навыкам", legendYou:"Результат ребёнка", legendAvg:"Среднее по классу",
+    strong:"Сильные стороны", focus:"Над чем поработать",
+    keep:"Все навыки на хорошем уровне — сохраняйте этот темп!",
+    ctaTitle:"Поможем улучшить результат", ctaText:"Учителя EduApp составят индивидуальный план под слабые места вашего ребёнка.", ctaBtn:"Записаться на урок",
+    levels:[["Отличный","Опережает уровень класса. Готов к более сложным заданиям."],["Хороший","Основные темы усвоены хорошо, несколько навыков стоит подтянуть."],["Средний","База есть, но нужны регулярное повторение и практика."],["Начальный","Рекомендуем заново закрепить основные темы вместе с учителем."]],
+    skills:{W:["Письмо","Writing","Каждый день пишите 3–5 предложений и вместе проверяйте ошибки."],Voc:["Словарный запас","Vocabulary","5 новых слов в день: повторяйте через карточки и игры."],R:["Чтение","Reading","2–3 раза в неделю читайте вслух короткие английские рассказы."],Gr:["Грамматика","Grammar","Закрепляйте базовые правила (to be, Present Simple) на примерах."],L:["Аудирование","Listening","Смотрите мультфильмы и слушайте песни на английском с субтитрами."]}
+  }
+};
+const SKILLS = ["W","Voc","R","Gr","L"];
+const ICONS = {
+  W:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  Voc:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  R:'<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+  Gr:'<path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/>',
+  L:'<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>'
+};
+
+// Средние считаются по своему классу; навыки — только у тех, у кого они есть
+const avgFor = grade => {
+  const rows = DATA.s.filter(r => r[0] === grade && r[1] >= 0), sum = [0,0,0,0,0,0], cnt = [0,0,0,0,0,0];
+  rows.forEach(r => r.slice(1).forEach((v, i) => { sum[i] += v; cnt[i]++; }));
+  return sum.map((v, i) => cnt[i] ? v / cnt[i] : 0);
+};
+
+let lang = "kk", current = null;
+try { const saved = localStorage.getItem("ea-lang"); if (saved in I18N) lang = saved; } catch (e) {}
+
+const $ = s => document.querySelector(s);
+const fmt = v => (Math.round(v * 10) / 10).toString().replace(".", lang === "ru" ? "," : ".");
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const levelOf = p => p >= 85 ? 0 : p >= 70 ? 1 : p >= 50 ? 2 : 3;
+
+function applyLang(){
+  const t = I18N[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const v = t[el.dataset.t];
+    if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+  });
+  document.querySelectorAll("[data-ph]").forEach(el => el.placeholder = t[el.dataset.ph]);
+  document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+  if ($("#err").classList.contains("show")) $("#err").textContent = t[$("#err").dataset.key];
+  if (current) render(current, false);
+}
+
+function renderPending(r){
+  const t = I18N[lang], el = $("#result");
+  el.innerHTML = `
+    <div class="r-head">
+      <div>
+        <div class="kicker">${t.kicker}</div>
+        <h2>${esc(r.name)}</h2>
+        <div class="meta">${t.grade(r.grade)}</div>
+      </div>
+      <div class="r-actions"><button class="btn btn-outline btn-sm" type="button" id="again">${t.again}</button></div>
+    </div>
+    <div class="panel pend"><h3>${t.pendTitle}</h3><p>${t.pendText}</p></div>`;
+  el.hidden = false;
+  $("#again").onclick = () => {
+    current = null; el.hidden = true; $("#form").reset(); setPin(false);
+    window.scrollTo({top: 0, behavior: "smooth"}); setTimeout(() => $("#name").focus(), 400);
+  };
+  el.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+function render(r, animate = true){
+  if (r.s[0] < 0) return renderPending(r);
+  const AVG = avgFor(r.grade), hasSkills = r.s.length > 1;
+  const t = I18N[lang], total = r.s[0], lv = levelOf(total), diff = total - AVG[0];
+  const circ = 2 * Math.PI * 86;
+  const sk = hasSkills ? SKILLS.map((k, i) => ({k, v: r.s[i + 1], avg: AVG[i + 1]})) : [];
+  const strong = sk.filter(x => x.v >= 85).sort((a, b) => b.v - a.v);
+  if (!strong.length && sk.length) strong.push([...sk].sort((a, b) => b.v - a.v)[0]);
+  const focus = sk.filter(x => x.v < 70).sort((a, b) => a.v - b.v).slice(0, 2);
+  const cmpWord = Math.abs(diff) < 1 ? t.equal : diff > 0 ? t.above : t.below;
+  const cmpVal = Math.abs(diff) < 1 ? "" : " " + (diff > 0 ? "+" : "−") + fmt(Math.abs(diff)) + "%";
+
+  const el = $("#result");
+  el.innerHTML = `
+    <div class="r-head reveal">
+      <div>
+        <div class="kicker">${t.kicker}</div>
+        <h2>${esc(r.name)}</h2>
+        <div class="meta">${t.grade(r.grade || "3")}</div>
+      </div>
+      <div class="r-actions">
+        <button class="btn btn-outline btn-sm" type="button" id="again">${t.again}</button>
+        <button class="btn btn-outline btn-sm" type="button" onclick="window.print()">${t.print}</button>
+      </div>
+    </div>
+    <div class="grid${hasSkills ? "" : " one"}">
+      <div class="panel score reveal">
+        <h3>${t.total}</h3>
+        <div class="ring">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4fd6"/><stop offset="1" stop-color="#2857fc"/></linearGradient></defs>
+            <circle cx="100" cy="100" r="86" fill="none" stroke="#EEF0F6" stroke-width="16"/>
+            <circle id="arc" cx="100" cy="100" r="86" fill="none" stroke="url(#rg)" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="${circ}" stroke-dashoffset="${animate ? circ : circ * (1 - total / 100)}" style="transition:stroke-dashoffset 1.3s var(--ease)"/>
+          </svg>
+          <div class="val"><b>${fmt(total)}%</b><span>${t.outOf}</span></div>
+        </div>
+        <span class="badge lvl-${lv + 1}"><i></i>${t.levels[lv][0]}</span>
+        <p>${t.levels[lv][1]}</p>
+        <div class="cmp"><span>${t.classAvg}: <b>${fmt(AVG[0])}%</b></span><span>${t.vsAvg}: <b>${cmpWord}${cmpVal}</b></span></div>
+      </div>
+      ${hasSkills ? `<div class="panel reveal">
+        <h3>${t.skillsTitle}</h3>
+        <div class="skills">
+          ${sk.map(x => `
+            <div>
+              <div class="sk-top">
+                <span class="sk-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[x.k]}</svg></span>
+                <span class="sk-name">${t.skills[x.k][0]}<small>${t.skills[x.k][1]}</small></span>
+                <span class="sk-val">${fmt(x.v)}%</span>
+              </div>
+              <div class="bar" role="img" aria-label="${t.skills[x.k][0]}: ${fmt(x.v)}%, ${t.classAvg}: ${fmt(x.avg)}%">
+                <div class="fill${x.v < 60 ? " low" : ""}" data-w="${x.v}" style="width:${animate ? 0 : x.v}%"></div>
+                <span class="avg" style="left:calc(${x.avg}% - 1.5px)" title="${t.classAvg}: ${fmt(x.avg)}%"></span>
+              </div>
+            </div>`).join("")}
+        </div>
+        <div class="legend"><span><i></i>${t.legendYou}</span><span><i class="a"></i>${t.legendAvg}</span></div>
+      </div>` : ""}
+    </div>
+    ${hasSkills ? `<div class="tips">
+      <div class="panel reveal">
+        <h3>${t.strong}</h3>
+        <ul class="tip-list">${strong.map(x => `<li><span class="dot g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><div><b>${t.skills[x.k][0]} · ${fmt(x.v)}%</b></div></li>`).join("")}</ul>
+      </div>
+      <div class="panel reveal">
+        <h3>${t.focus}</h3>
+        <ul class="tip-list">${focus.length ? focus.map(x => `<li><span class="dot o">!</span><div><b>${t.skills[x.k][0]} · ${fmt(x.v)}%</b><span>${t.skills[x.k][2]}</span></div></li>`).join("") : `<li><span class="dot g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><div><b>${t.keep}</b></div></li>`}</ul>
+      </div>
+    </div>` : ""}
+    <div class="cta reveal">
+      <div><h3>${t.ctaTitle}</h3><p>${t.ctaText}</p></div>
+      <div class="cta-btns">
+        <a class="btn btn-glass" href="https://eduapp.example.com" target="_blank" rel="noopener">${t.platformTitle}</a>
+        <a class="btn btn-gold" href="https://eduapp.example.com" target="_blank" rel="noopener">${t.ctaBtn}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>`;
+  el.hidden = false;
+  $("#again").onclick = () => {
+    current = null; el.hidden = true; $("#form").reset(); setPin(false);
+    window.scrollTo({top: 0, behavior: "smooth"}); setTimeout(() => $("#name").focus(), 400);
+  };
+  if (animate){
+    el.querySelectorAll(".reveal").forEach(n => n.style.animation = "none");
+    requestAnimationFrame(() => {
+      el.querySelectorAll(".reveal").forEach(n => n.style.animation = "");
+      el.scrollIntoView({behavior: "smooth", block: "start"});
+      setTimeout(() => {
+        $("#arc").style.strokeDashoffset = circ * (1 - total / 100);
+        el.querySelectorAll(".fill").forEach(f => f.style.width = f.dataset.w + "%");
+      }, 250);
+    });
+  } else {
+    el.querySelectorAll(".reveal").forEach(n => n.classList.remove("reveal"));
+  }
+}
+
+function showErr(key){
+  const e = $("#err");
+  e.dataset.key = key; e.textContent = I18N[lang][key];
+  e.classList.remove("show"); void e.offsetWidth; e.classList.add("show");
+}
+
+/* --- Подсказки имён --- */
+const NAMES = DATA.n.map((name, i) => ({name, i, ws: words(name)}));
+let sugItems = [], sugActive = -1;
+function closeSug(){
+  $("#sug").hidden = true; $("#name").setAttribute("aria-expanded", "false"); sugItems = []; sugActive = -1;
+}
+function markName(name, typed){
+  // подсвечиваем слова, совпавшие с введённым
+  return name.split(/(\s+)/).map(part => {
+    const w = words(part)[0];
+    return w && typed.some(t => w.startsWith(t)) ? "<mark>" + esc(part) + "</mark>" : esc(part);
+  }).join("");
+}
+function showSug(){
+  const typed = words($("#name").value);
+  if (!typed.length){ closeSug(); return; }
+  sugItems = NAMES.filter(x => typed.every(t => x.ws.some(w => w.startsWith(t))))
+    .sort((a, b) => a.name.localeCompare(b.name)).slice(0, 7);
+  if (!sugItems.length){ closeSug(); return; }
+  sugActive = -1;
+  const t = I18N[lang];
+  $("#sug").innerHTML = sugItems.map((x, k) => {
+    const ini = x.name.split(/\s+/).map(p => p[0]).join("").slice(0, 2).toUpperCase();
+    const g = DATA.s[x.i][0];
+    return `<li role="option" id="sug-${k}" data-k="${k}" aria-selected="false"><i>${esc(ini)}</i><span>${markName(x.name, typed)}</span>${g ? `<small>${t.gradeShort(g)}</small>` : ""}</li>`;
+  }).join("");
+  $("#sug").hidden = false; $("#name").setAttribute("aria-expanded", "true");
+}
+function pickSug(k){
+  $("#name").value = sugItems[k].name; closeSug();
+  $("#form").requestSubmit();
+}
+function setPin(on){ $("#pinField").hidden = !on; if (!on) $("#pin").value = ""; }
+$("#name").addEventListener("input", () => { setPin(false); showSug(); });
+$("#name").addEventListener("focus", showSug);
+$("#name").addEventListener("keydown", e => {
+  if ($("#sug").hidden || !sugItems.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault();
+    sugActive = (sugActive + (e.key === "ArrowDown" ? 1 : -1) + sugItems.length) % sugItems.length;
+    $("#sug").querySelectorAll("li").forEach((li, k) => li.setAttribute("aria-selected", k === sugActive));
+    $("#name").setAttribute("aria-activedescendant", "sug-" + sugActive);
+  } else if (e.key === "Enter" && sugActive >= 0){
+    e.preventDefault(); pickSug(sugActive);
+  } else if (e.key === "Escape"){
+    closeSug();
+  }
+});
+$("#sug").addEventListener("mousedown", e => {
+  const li = e.target.closest("li");
+  if (li){ e.preventDefault(); pickSug(+li.dataset.k); }
+});
+document.addEventListener("click", e => { if (!e.target.closest(".ac")) closeSug(); });
+
+$("#form").addEventListener("submit", ev => {
+  ev.preventDefault();
+  closeSug();
+  const name = $("#name").value.trim();
+  if (!name) return showErr("errEmpty");
+  const pin = $("#pin").value.replace(/\D/g, "");
+  const r = lookup(name, pin.length === 4 ? pin : "");
+  if (r === "pin" || r === "pinBad"){
+    current = null; $("#result").hidden = true; setPin(true); $("#pin").focus();
+    return showErr(r === "pin" ? "errPin" : "errPinBad");
+  }
+  if (!r || r === "amb"){ current = null; $("#result").hidden = true; return showErr(r ? "errAmb" : "errNone"); }
+  $("#err").classList.remove("show");
+  current = r; render(r);
+});
+document.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => {
+  lang = b.dataset.lang;
+  try { localStorage.setItem("ea-lang", lang); } catch (e) {}
+  applyLang();
+});
+$("#yr").textContent = new Date().getFullYear();
+applyLang();
+</script>
+</body>
+</html>
